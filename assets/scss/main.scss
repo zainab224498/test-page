@@ -1,0 +1,45 @@
+// assets/scss/main.scss
+
+// Import Bootstrap
+@forward "bootstrap/scss/bootstrap";
+
+
+// Import Sass modules
+@use "sass:map";
+@use "sass:string";
+
+
+// Custom SCSS to extend Bootstrap utilities
+$utilities: (
+  "letter-spacing": (
+    property: letter-spacing,
+    class: ls,
+    values: (
+      1: 1px,
+      2: 2px,
+      3: 3px,
+      4: 4px,
+      5: 5px,
+    ),
+  ),
+  "word-spacing": (
+    property: word-spacing,
+    class: ws,
+    values: (
+      1: 1px,
+      2: 2px,
+      3: 3px,
+      4: 4px,
+      5: 5px,
+    ),
+  ),
+);
+
+// Generating utility classes
+@each $name, $utility in $utilities {
+  @each $key, $value in map.get($utility, values) {
+    .#{map.get($utility, class)}-#{$key} {
+      #{map.get($utility, property)}: #{$value};
+    }
+  }
+}
